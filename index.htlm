@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html class="mti-inactive"><head>
+    <title>Lesson 2 | CartoDB.js | CartoDB</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico">
+
+    <link rel="stylesheet" href="Lesson%202%20%7C%20CartoDB.js%20%7C%20CartoDB_files/jquery-ui.css">
+    <link rel="stylesheet" href="Lesson%202%20%7C%20CartoDB.js%20%7C%20CartoDB_files/cartodb.css">
+    <link rel="stylesheet" href="Lesson%202%20%7C%20CartoDB.js%20%7C%20CartoDB_files/style.css">
+    <link rel="stylesheet" href="Lesson%202%20%7C%20CartoDB.js%20%7C%20CartoDB_files/cdbui.html">
+
+    <style>
+      html, body {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+      #map {
+        height: 67%;
+        padding: 0;
+        margin: 0;
+      }
+      #dashboard {
+        height: 33%;
+        padding: 25px;
+        margin: 0;
+        border-top: 2px solid #333;
+      }
+      #dash {
+        margin: 25px 0;
+        width: 400px;
+      }
+      button {
+        margin-right: 10px;
+        font-family: "Proxima Nova W01", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background: transparent;
+      }
+      p {
+        font-size: 17px;
+        margin-bottom: 10px;
+      }
+    </style>
+
+    <script src="Lesson%202%20%7C%20CartoDB.js%20%7C%20CartoDB_files/jquery-1.js"></script>
+    <script src="Lesson%202%20%7C%20CartoDB.js%20%7C%20CartoDB_files/jquery-ui.js"></script>
+    <style id="mti_stylesheet_b6470a43-5105-49d3-95ae-75217a436bf8" type="text/css">.mti_hide_element{visibility:hidden;}</style><script type="text/javascript" src="Lesson%202%20%7C%20CartoDB.js%20%7C%20CartoDB_files/b6470a43-5105-49d3-95ae-75217a436bf8.js"></script>
+
+  <style id="mti_fontface_b6470a43-5105-49d3-95ae-75217a436bf8" type="text/css">@font-face{
+font-family:"Proxima Nova W01";
+font-style:normal;
+font-weight:500;
+src:url("http://fast.fonts.net/dv2/14/0d416408-95c6-4ad7-b08d-e60573d3b37d.woff2?d44f19a684109620e4841679a390e818f15f4c3a416f72bce690397bb3766ef8eceac813423d2bb04b532149f84e22208d917f967083a8f4340c08349685cf59f4d650b31e6c66d702dde153d0fce424b289e3e48db49596050e22c8ab0fc7bd840d081c7646bd92ae8f81b4c11e8306dc8f34fff3ad77f2b80a3fadde9ee876d182f00751c5918f3aed6eb19e58aa6894563709116ed796a3f276c8adcb24cd9991a43504eae4d2ada5d20ab501f227eca849a04ef9bdc0dadd3708860930d7d250dd5907bd54bac2644f5c&projectId=b6470a43-5105-49d3-95ae-75217a436bf8") format('woff2');}
+@font-face{
+font-family:"Proxima Nova W01";
+font-style:normal;
+font-weight:200;
+src:url("http://fast.fonts.net/dv2/14/d9fe41ee-4904-4a11-ba11-b61cd3be767f.woff2?d44f19a684109620e4841679a390e818f15f4c3a416f72bce690397bb3766ef8eceac813423d2bb04b532149f84e22208d917f967083a8f4340c08349685cf59f4d650b31e6c66d702dde153d0fce424b289e3e48db49596050e22c8ab0fc7bd840d081c7646bd92ae8f81b4c11e8306dc8f34fff3ad77f2b80a3fadde9ee876d182f00751c5918f3aed6eb19e58aa6894563709116ed796a3f276c8adcb24cd9991a43504eae4d2ada5d20ab501f227eca849a04ef9bdc0dadd3708860930d7d250dd5907bd54bac2644f5c&projectId=b6470a43-5105-49d3-95ae-75217a436bf8") format('woff2');}
+@font-face{
+font-family:"Proxima Nova W01";
+font-style:normal;
+font-weight:300;
+src:url("http://fast.fonts.net/dv2/14/64017d81-9430-4cba-8219-8f5cc28b923e.woff2?d44f19a684109620e4841679a390e818f15f4c3a416f72bce690397bb3766ef8eceac813423d2bb04b532149f84e22208d917f967083a8f4340c08349685cf59f4d650b31e6c66d702dde153d0fce424b289e3e48db49596050e22c8ab0fc7bd840d081c7646bd92ae8f81b4c11e8306dc8f34fff3ad77f2b80a3fadde9ee876d182f00751c5918f3aed6eb19e58aa6894563709116ed796a3f276c8adcb24cd9991a43504eae4d2ada5d20ab501f227eca849a04ef9bdc0dadd3708860930d7d250dd5907bd54bac2644f5c&projectId=b6470a43-5105-49d3-95ae-75217a436bf8") format('woff2');}
+@font-face{
+font-family:"Proxima Nova W01";
+font-style:normal;
+font-weight:400;
+src:url("http://fast.fonts.net/dv2/14/ae47a7f5-89da-4879-b934-29722c3dd451.woff2?d44f19a684109620e4841679a390e818f15f4c3a416f72bce690397bb3766ef8eceac813423d2bb04b532149f84e22208d917f967083a8f4340c08349685cf59f4d650b31e6c66d702dde153d0fce424b289e3e48db49596050e22c8ab0fc7bd840d081c7646bd92ae8f81b4c11e8306dc8f34fff3ad77f2b80a3fadde9ee876d182f00751c5918f3aed6eb19e58aa6894563709116ed796a3f276c8adcb24cd9991a43504eae4d2ada5d20ab501f227eca849a04ef9bdc0dadd3708860930d7d250dd5907bd54bac2644f5c&projectId=b6470a43-5105-49d3-95ae-75217a436bf8") format('woff2');}
+@font-face{
+font-family:"Proxima Nova W01";
+font-style:normal;
+font-weight:600;
+src:url("http://fast.fonts.net/dv2/14/eb39afe0-709e-46d6-92ad-db5c3bfd24a9.woff2?d44f19a684109620e4841679a390e818f15f4c3a416f72bce690397bb3766ef8eceac813423d2bb04b532149f84e22208d917f967083a8f4340c08349685cf59f4d650b31e6c66d702dde153d0fce424b289e3e48db49596050e22c8ab0fc7bd840d081c7646bd92ae8f81b4c11e8306dc8f34fff3ad77f2b80a3fadde9ee876d182f00751c5918f3aed6eb19e58aa6894563709116ed796a3f276c8adcb24cd9991a43504eae4d2ada5d20ab501f227eca849a04ef9bdc0dadd3708860930d7d250dd5907bd54bac2644f5c&projectId=b6470a43-5105-49d3-95ae-75217a436bf8") format('woff2');}
+</style><style></style><link href="Lesson%202%20%7C%20CartoDB.js%20%7C%20CartoDB_files/1.css" rel="stylesheet" type="text/css" id="MonoTypeFontApiFontTracker"></head>
+  <body>
+    <div id="map"></div>
+    <div id="dashboard">
+        <h3 class="Title Title--xs">CartoDB.js from the ground up, Lesson 2</h3>
+    </div>
+
+    <!-- include cartodb.js library -->
+    <script src="Lesson%202%20%7C%20CartoDB.js%20%7C%20CartoDB_files/cartodb.js"></script>
+
+    <!-- Place your code in the script tags below -->
+    <script>
+    </script>
+  
+
+</body></html>
